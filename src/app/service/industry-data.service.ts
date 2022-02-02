@@ -11,8 +11,8 @@ export class IndustryDataService {
 
   // Node/Express API
   
-//  REST_API: string = 'https://trip-to-plan.herokuapp.com/api';
-  REST_API: string = 'http://localhost:8000/api';
+  REST_API: string = 'https://industry-data-dashboard.herokuapp.com/api';
+//  REST_API: string = 'http://localhost:8000/api';
 
   // Http Header
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
