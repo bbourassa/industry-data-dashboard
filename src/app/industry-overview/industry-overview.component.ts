@@ -13,9 +13,9 @@ export class IndustryOverviewComponent implements OnInit {
   constructor(private industryDataService: IndustryDataService) { }
 
   ngOnInit(): void {
-      this.industryDataService.getGeneralData().subscribe(res => {
-          this.testData = res;
-      })
+    //  this.industryDataService.getGeneralData().subscribe(res => {
+    //      this.testData = res;
+    //  })
       console.log('here!');
       console.log(this.testData);
   }

@@ -19,30 +19,24 @@ let options = {
     'endyear': '2008',
 };
 
-//Get Industry Data for a Single Year
-//industryRoutes.route('/industry/:options').get(async(req, res) => {
-//    let options = req.params.options;
-//    bls.fetch(options).then(function(response) {
-//        industryData = JSON.stringify(response);
-//        industryData = JSON.stringify(JSON.parse(industryData).Results.series[0].data[0]);
-//        console.log(industryData);
-//    });
-//    res.status(201);
-//});
-
-industryRoutes.route('/industry/:seriesId/:startyear/:endyear').get(async (req, res) => {
+industryRoutes.route('/industry/:seriesID/:startYear/:endYear').get(async (req, res) => {
     let options = {
-        'seriesid': [req.params.seriesId],
-        'startyear': req.params.startyear,  
-        'endyear': req.params.endyear,
+        'seriesid': [req.params.seriesID],
+        'startyear': req.params.startYear,  
+        'endyear': req.params.endYear,
+        //"latest": "true",
     };
+
     console.log(options);
     bls.fetch(options).then(function(response) {
         industryData = JSON.stringify(response);
-        industryData = JSON.stringify(JSON.parse(industryData).Results.series[0].data[0]);
-        console.log(industryData);
+        res.json(JSON.stringify(JSON.parse(industryData).Results.series[0].data));
+        //industryData = JSON.stringify(JSON.parse(industryData).Results.series[0].data[13]);
+        console.log(JSON.stringify(JSON.parse(industryData).Results.series[0].data[0]));
+        //console.log(JSON.stringify(JSON.parse(industryData).Results.series[0].data[13]));
+        //console.log(JSON.stringify(JSON.parse(industryData).Results.series[0].data[26]));
     });
-    res.json('{done}');
+    //res.json('{done}');
 });
 
 module.exports = industryRoutes;

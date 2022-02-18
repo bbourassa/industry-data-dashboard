@@ -1,1 +1,187 @@
-<p>industry-timeline works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            Industry
+            <div class="input-group mb-3">
+              <select class="custom-select" [(ngModel)]="selectedInfo[0].Industry" id="industry" (change)="checkGenerate()">
+                <option selected>Select an Industry</option>
+                <option *ngFor="let industry of industries" [value]="industry">
+                    {{industry}}
+                </option>
+              </select>
+            </div>
+        </div>
+        <div class="col-sm">
+            Measurement
+            <div class="input-group mb-3">
+              <select class="custom-select" [(ngModel)]="selectedInfo[0].Measurement" id="measurement" (change)="checkGenerate(); checkMeasurement()">
+                <option selected>Select a Measurement</option>
+                <option *ngFor="let measurement of measurements" [value]="measurement">
+                  {{measurement}}
+              </option>
+              </select>
+            </div>
+          </div>
+        <div class="col-sm">
+          State
+          <div class="input-group mb-3">
+            <select class="custom-select" [(ngModel)]="selectedInfo[0].State" id="state" (change)="checkGenerate()" [disabled]="noState">
+              <option selected>Select a State</option>
+              <option *ngFor="let state of states" [value]="state">
+                {{state}}
+            </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm">
+          Start Year
+          <div class="input-group mb-3">
+            <select class="custom-select" [(ngModel)]="selectedInfo[0].StartYear" id="startYear" (change)="checkGenerate()">
+              <option selected>Select a Start Year</option>
+              <option value="2007">2007</option>
+              <option value="2008">2008</option>
+              <option value="2009">2009</option>
+              <option value="2010">2010</option>
+              <option value="2011">2011</option>
+              <option value="2012">2012</option>
+              <option value="2013">2013</option>
+              <option value="2014">2014</option>
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm">
+          End Year
+          <div class="input-group mb-3">
+            <select class="custom-select" [(ngModel)]="selectedInfo[0].EndYear" id="endYear" (change)="checkGenerate()">
+              <option selected>Select an End Year</option>
+              <option value="2007">2007</option>
+              <option value="2008">2008</option>
+              <option value="2009">2009</option>
+              <option value="2010">2010</option>
+              <option value="2011">2011</option>
+              <option value="2012">2012</option>
+              <option value="2013">2013</option>
+              <option value="2014">2014</option>
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+            </select>
+          </div>
+        </div>
+    </div>
+    <div *ngFor="let item of items; let i = index">
+        <div class="row">
+            <div class="col-sm">
+                Industry
+                <div class="input-group mb-3">
+                  <select class="custom-select" [(ngModel)]="selectedInfo[i+1].Industry" (change)="checkGenerate()">
+                    <option selected>Select an Industry</option>
+                    <option *ngFor="let industry of industries" [value]="industry">
+                        {{industry}}
+                    </option>
+                  </select>
+                </div>
+            </div>
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+              State
+              <div class="input-group mb-3">
+                <select class="custom-select" [(ngModel)]="selectedInfo[i+1].State" (change)="checkGenerate()" [disabled]="noState">
+                  <option selected>Select a State</option>
+                  <option *ngFor="let state of states" [value]="state">
+                    {{state}}
+                </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm">
+              Start Year
+              <div class="input-group mb-3">
+                <select class="custom-select" [(ngModel)]="selectedInfo[i+1].StartYear" (change)="checkGenerate()">
+                  <option selected>Select a Start Year</option>
+                  <option value="2007">2007</option>
+                  <option value="2008">2008</option>
+                  <option value="2009">2009</option>
+                  <option value="2010">2010</option>
+                  <option value="2011">2011</option>
+                  <option value="2012">2012</option>
+                  <option value="2013">2013</option>
+                  <option value="2014">2014</option>
+                  <option value="2015">2015</option>
+                  <option value="2016">2016</option>
+                  <option value="2017">2017</option>
+                  <option value="2018">2018</option>
+                  <option value="2019">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm">
+              End Year
+              <div class="input-group mb-3">
+                <select class="custom-select" [(ngModel)]="selectedInfo[i+1].EndYear" (change)="checkGenerate()">
+                  <option selected>Select an End Year</option>
+                  <option value="2007">2007</option>
+                  <option value="2008">2008</option>
+                  <option value="2009">2009</option>
+                  <option value="2010">2010</option>
+                  <option value="2011">2011</option>
+                  <option value="2012">2012</option>
+                  <option value="2013">2013</option>
+                  <option value="2014">2014</option>
+                  <option value="2015">2015</option>
+                  <option value="2016">2016</option>
+                  <option value="2017">2017</option>
+                  <option value="2018">2018</option>
+                  <option value="2019">2019</option>
+                  <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+                </select>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <button type="button" class="btn btn-success" (click)="addRow()" [disabled]="noIndustryAdd">Add Industry</button>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-danger" (click)="removeRow()" [disabled]="noIndustryRemove">Remove Industry</button>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-primary" (click)="generateGraph()" [disabled]="noGenerateGraph">Generate Graph</button>
+        </div>
+    </div>
+    <div class="row">
+        <ngx-charts-line-chart
+            [view]="[1400, 600]"
+
+            [legend]="legend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxis]="xAxis"
+            [yAxis]="yAxis"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [timeline]="timeline"
+            [results]="multi"
+            (select)="onSelect($event)"
+            (activate)="onActivate($event)"
+            (deactivate)="onDeactivate($event)"
+        >
+        </ngx-charts-line-chart>
+    </div>
+  </div>
