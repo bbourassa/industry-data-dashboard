@@ -41,10 +41,21 @@ export class IndustryDataService {
   getGeneralData(seriesId: string, startYear: string, endYear: string): Observable<any> {
     //console.log(seriesId)
     let seriesID = seriesId;
-    let startyear = '2008';  
-    let endyear = '2008';
     //console.log(seriesID, startYear, endYear)
     let API_URL = `${this.REST_API}/industry/${seriesID}/${startYear}/${endYear}`;
+    return this.httpClient.get(API_URL, { headers: this.httpHeaders })
+      .pipe(map((res: any) => {
+          return res || {}
+        }),
+        catchError(this.handleError)
+      )
+  }
+
+  getAnnualData(seriesId: string, startYear: string, endYear: string): Observable<any> {
+    //console.log(seriesId)
+    let seriesID = seriesId;
+    //console.log(seriesID, startYear, endYear)
+    let API_URL = `${this.REST_API}/annual/${seriesID}/${startYear}/${endYear}`;
     return this.httpClient.get(API_URL, { headers: this.httpHeaders })
       .pipe(map((res: any) => {
           return res || {}
