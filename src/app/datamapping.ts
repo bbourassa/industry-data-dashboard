@@ -16,5 +16,5 @@
 
     jobOpeningIndustryCode: any = { 'Construction': '230000', 'Manufacturing': '300000', 'Trade, Transportation, and Utilities': '400000', 'Wholesale Trade': '420000', 'Retail Trade': '440000', 'Transportation, Warehousing, and Utilities': '480099', 'Information': '510000', 'Financial Activities': '510099', 'Finance and Insurance': '520000', 'Real Estate and Rental and Leasing': '530000', 'Professional and Business Services': '540099', 'Education and Health Services': '600000', 'Educational Services': '610000', 'Health Care and Social Assistance': '620000', 'Leisure and Hospitality': '700000', 'Arts, Entertainment, and Recreation': '710000', 'Accommodation and Food Services': '720000', 'Other Services': '810000', 'Government': '900000'};
   
-    measurementCode: any = {'All Employees': '1', 'Average Weekly Wage': '4', 'Average Annual Pay': '5', 'Hires': 'HI', 'Job Openings': 'JO', 'Layoffs & Discharges': 'LD'};
+    measurementCode: any = {'Number of Employees': '1', 'Average Weekly Wage': '4', 'Average Annual Pay': '5', 'Hires': 'HI', 'Job Openings': 'JO', 'Layoffs & Discharges': 'LD'};
   }

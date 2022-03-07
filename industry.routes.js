@@ -39,4 +39,25 @@ industryRoutes.route('/industry/:seriesID/:startYear/:endYear').get(async (req, 
     //res.json('{done}');
 });
 
+industryRoutes.route('/annual/:seriesID/:startYear/:endYear').get(async (req, res) => {
+    let options = {
+        'seriesid': [req.params.seriesID],
+        'startyear': req.params.startYear,  
+        'endyear': req.params.endYear,
+        'annualaverage': true
+        //"latest": "true",
+    };
+
+    console.log(options);
+    bls.fetch(options).then(function(response) {
+        industryData = JSON.stringify(response);
+        res.json(JSON.stringify(JSON.parse(industryData).Results.series[0].data));
+        //industryData = JSON.stringify(JSON.parse(industryData).Results.series[0].data[13]);
+        console.log(JSON.stringify(JSON.parse(industryData).Results.series[0].data[0]));
+        //console.log(JSON.stringify(JSON.parse(industryData).Results.series[0].data[13]));
+        //console.log(JSON.stringify(JSON.parse(industryData).Results.series[0].data[26]));
+    });
+    //res.json('{done}');
+});
+
 module.exports = industryRoutes;

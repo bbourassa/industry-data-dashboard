@@ -101,7 +101,6 @@ export class IndustryTimelineComponent implements OnInit {
   }
 
   checkGenerate(): void {
-      console.log(this.items.length)
       if(this.items.length >= 0) {
         let selectObjects = Object.values(this.selectedInfo[0]).filter(s => s.includes('Select'));
         if(selectObjects.length > 0) {

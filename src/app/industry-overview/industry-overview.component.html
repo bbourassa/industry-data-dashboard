@@ -1,2 +1,80 @@
-<p>industry-overview works</p>
-<button>click me</button>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            Industry
+            <div class="input-group mb-3">
+              <select class="custom-select" [(ngModel)]="selectedInfo.Industry" id="industry" (change)="checkGenerate()">
+                <option selected>Select an Industry</option>
+                <option *ngFor="let industry of industries" [value]="industry">
+                    {{industry}}
+                </option>
+              </select>
+            </div>
+        </div>
+        <div class="col-sm">
+          State
+          <div class="input-group mb-3">
+            <select class="custom-select" [(ngModel)]="selectedInfo.State" id="state" (change)="checkGenerate()">
+              <option selected>Select a State</option>
+              <option *ngFor="let state of states" [value]="state">
+                {{state}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm">
+          Year
+          <div class="input-group mb-3">
+            <select class="custom-select" [(ngModel)]="selectedInfo.Year" id="year" (change)="checkGenerate()">
+              <option selected>Select a Year</option>
+              <option value="2007">2007</option>
+              <option value="2008">2008</option>
+              <option value="2009">2009</option>
+              <option value="2010">2010</option>
+              <option value="2011">2011</option>
+              <option value="2012">2012</option>
+              <option value="2013">2013</option>
+              <option value="2014">2014</option>
+              <option value="2015">2015</option>
+              <option value="2016">2016</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+            </select>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <button type="button" class="btn btn-primary" [disabled]="noGenerate" (click)="generateGraphs()">Generate Graph</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>State-Based Employment Data</h3>
+            <ngx-charts-polar-chart
+                [view]="[600, 500]"
+                [legend]="legend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxis]="xAxis"
+                [yAxis]="yAxis"
+                [results]="multi">
+            </ngx-charts-polar-chart>
+        </div>
+        <div class="col">
+            <h3>Country-Wide Employment Data</h3>
+            <ngx-charts-polar-chart
+                [view]="[600, 500]"
+                [legend]="legend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxis]="xAxis"
+                [yAxis]="yAxis"
+                [results]="multi2">
+            </ngx-charts-polar-chart>
+        </div>
+    </div>
+  </div>
