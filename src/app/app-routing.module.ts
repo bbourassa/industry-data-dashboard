@@ -4,7 +4,7 @@ import { IndustryOverviewComponent } from './industry-overview/industry-overview
 import { IndustryTimelineComponent } from './industry-timeline/industry-timeline.component';
 
 const routes: Routes = [
-    {path: '', pathMatch: 'full', redirectTo: ''},
+    {path: '', pathMatch: 'full', redirectTo: 'timeline'},
     {path: 'overview', component: IndustryOverviewComponent},
     {path: 'timeline', component: IndustryTimelineComponent}
 ];

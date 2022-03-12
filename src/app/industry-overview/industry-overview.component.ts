@@ -24,47 +24,9 @@ export class IndustryOverviewComponent implements OnInit {
 
     selectedInfo = {'Industry': 'Select an Industry', 'State': 'Select a State', 'Year': 'Select a Year'}
 
-    multi = [
-        {
-          "name": "Construction",
-          "series": [
-            {
-              "name": "All Employees",
-              "value": 62000000
-            },
-            {
-              "name": "Average Weekly Wage",
-              "value": 73000000
-            },
-            {
-              "name": "Average Annual Pay",
-              "value": 89400000
-            }
-          ]
-        }
-      ];
-      ;
+    multi: any[] = [];
 
-      multi2 = [
-        {
-          "name": "Construction",
-          "series": [
-            {
-              "name": "Hires",
-              "value": 62000000
-            },
-            {
-              "name": "Job Openings",
-              "value": 73000000
-            },
-            {
-              "name": "Layoffs & Discharges",
-              "value": 89400000
-            }
-          ]
-        }
-      ];
-      ;
+    multi2: any[] = [];
 
   // options
   legend: boolean = true;
@@ -131,7 +93,7 @@ export class IndustryOverviewComponent implements OnInit {
 
       this.industryDataService.getAnnualData(empSeriesID, year, year).subscribe(res => {
         console.log(JSON.parse(res))
-        this.setStateRadar(JSON.parse(res), 'All Employees')
+        this.setStateRadar(JSON.parse(res), 'Number of Employees')
         this.industryDataService.getAnnualData(weeklyWageID, year, year).subscribe(res => {
             console.log(JSON.parse(res))
             this.setStateRadar(JSON.parse(res), 'Average Weekly Wage')
