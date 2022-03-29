@@ -14,12 +14,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from "@angular/material/dialog";
 import { IndustryTimelineComponent } from './industry-timeline/industry-timeline.component';
 import { IndustryOverviewComponent } from './industry-overview/industry-overview.component';
+import { IndustryHomepageComponent } from './industry-homepage/industry-homepage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndustryTimelineComponent,
-    IndustryOverviewComponent
+    IndustryOverviewComponent,
+    IndustryHomepageComponent
   ],
   imports: [
     BrowserModule,

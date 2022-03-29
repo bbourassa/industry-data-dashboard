@@ -123,7 +123,4 @@ export class IndustryOverviewComponent implements OnInit {
       });
   }
 
-//  onSelect(event) {
-//    console.log(event);
-//  }
 }

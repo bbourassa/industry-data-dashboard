@@ -149,10 +149,9 @@ export class IndustryTimelineComponent implements OnInit {
   }
 
   formatData(graphData: any[], index: any) {
-    this.multi.push({"name": this.selectedInfo[index].Industry, "series": [], "index": index})
-    console.log(this.multi)
+
+    this.multi.push({"name": this.selectedInfo[index].Industry + ' - ' + this.selectedInfo[index].State, "series": [], "index": index})
     let multiIndex = this.multi.find(element => element.index === index)
-    console.log(multiIndex)
     for(let i = 0; i < graphData.length; i++) {
         this.multi[multiIndex.index].series.unshift({"name": graphData[i].periodName + ' ' + graphData[i].year, "value": parseFloat(graphData[i].value)})
     }
@@ -185,10 +184,8 @@ export class IndustryTimelineComponent implements OnInit {
       let firstInfo = this.getQueryInfo(this.selectedInfo[0])
 
       let firstSeriesID = this.formatSeriesID(firstInfo.measurement, 0);
-      console.log(firstSeriesID)
 
       this.industryDataService.getGeneralData(firstSeriesID, firstInfo.startYear, firstInfo.endYear).subscribe(res => {
-           console.log(JSON.parse(res))
 
            this.yAxisLabel = this.selectedInfo[0].Measurement!
 
@@ -197,9 +194,7 @@ export class IndustryTimelineComponent implements OnInit {
            if(this.items.length >= 1) {
             let secondInfo = this.getQueryInfo(this.selectedInfo[1])
             let secondSeriesID = this.formatSeriesID(secondInfo.measurement, 1);
-            console.log(secondSeriesID)
             this.industryDataService.getGeneralData(secondSeriesID, secondInfo.startYear, secondInfo.endYear).subscribe(res => {
-                console.log(JSON.parse(res))
 
                 this.yAxisLabel = this.selectedInfo[0].Measurement!
      
@@ -208,9 +203,7 @@ export class IndustryTimelineComponent implements OnInit {
                 if(this.items.length >= 2) {
                     let thirdInfo = this.getQueryInfo(this.selectedInfo[2])
                     let thirdSeriesID = this.formatSeriesID(thirdInfo.measurement, 2);
-                      console.log(thirdSeriesID)
                       this.industryDataService.getGeneralData(thirdSeriesID, thirdInfo.startYear, thirdInfo.endYear).subscribe(res => {
-                        console.log(JSON.parse(res))
              
                         this.yAxisLabel = this.selectedInfo[0].Measurement!
              
@@ -219,29 +212,49 @@ export class IndustryTimelineComponent implements OnInit {
                         if(this.items.length === 3) {
                             let fourthInfo = this.getQueryInfo(this.selectedInfo[3])
                             let fourthSeriesID = this.formatSeriesID(fourthInfo.measurement, 3);
-                              console.log(fourthSeriesID)
                     
                               this.industryDataService.getGeneralData(fourthSeriesID, fourthInfo.startYear, fourthInfo.endYear).subscribe(res => {
-                                console.log(JSON.parse(res))
                      
                                 this.yAxisLabel = this.selectedInfo[0].Measurement!
                      
                                 this.formatData(JSON.parse(res), 3)
                      
+                                let firstDate = this.multi[0].series[0].name
+                                let secondDate = this.multi[1].series[0].name
+                                let thirdDate = this.multi[2].series[0].name
+                                let fourthDate = this.multi[3].series[0].name
+                                let sortedDates = [{'index': 0, 'year': new Date(firstDate.substring(firstDate.length-5, firstDate.length))}, {'index': 1, 'year': new Date(secondDate.substring(secondDate.length-5, secondDate.length))}, {'index': 2, 'year': new Date(thirdDate.substring(thirdDate.length-5, thirdDate.length))}, {'index': 3, 'year':new Date(fourthDate.substring(fourthDate.length-5, fourthDate.length))}]
+                                sortedDates.sort((a: any, b: any) => (a.year > b.year ? 1 : -1))
                                 this.multi = [...this.multi]
-                     
+                                [this.multi[0], this.multi[1], this.multi[2], this.multi[3]] = [this.multi[sortedDates[0].index], this.multi[sortedDates[1].index], this.multi[sortedDates[2].index], this.multi[sortedDates[3].index]]
+                                this.multi = [...this.multi]
                            });
                         } else {
+                            let firstDate = this.multi[0].series[0].name
+                            let secondDate = this.multi[1].series[0].name
+                            let thirdDate = this.multi[2].series[0].name
+                            let sortedDates = [{'index': 0, 'year': new Date(firstDate.substring(firstDate.length-5, firstDate.length))}, {'index': 1, 'year': new Date(secondDate.substring(secondDate.length-5, secondDate.length))}, {'index': 2, 'year': new Date(thirdDate.substring(thirdDate.length-5, thirdDate.length))}]
+                            sortedDates.sort((a: any, b: any) => (a.year > b.year ? 1 : -1))
+                            this.multi = [...this.multi]
+                            [this.multi[0], this.multi[1], this.multi[2]] = [this.multi[sortedDates[0].index], this.multi[sortedDates[1].index], this.multi[sortedDates[2].index]]
                             this.multi = [...this.multi]
                         }
              
                    });
                 } else {
+                    let firstDate = this.multi[0].series[0].name
+                    let secondDate = this.multi[1].series[0].name
+                    if(new Date(firstDate.substring(firstDate.length-5, firstDate.length)) > new Date(secondDate.substring(secondDate.length-5, secondDate.length))) {
+                        [this.multi[0], this.multi[1]] = [this.multi[1], this.multi[0]]
+                    }
                     this.multi = [...this.multi]
                 }
            });
            } else {
             this.multi = [...this.multi]
+            console.log(this.multi[0])
+            console.log(this.multi[1])
+            console.log(new Date(this.multi[0].series[0].name))
            }
 
       });

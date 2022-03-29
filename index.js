@@ -43,6 +43,10 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/industry-data-dashboard'));
 });
 
+app.get('/homepage', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'dist/industry-data-dashboard/index.html'))
+});
+
 app.get('/timeline', (req, res) => {
     res.sendFile(path.resolve(__dirname,'dist/industry-data-dashboard/index.html'));
 });

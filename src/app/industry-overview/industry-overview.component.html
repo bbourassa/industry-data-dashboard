@@ -1,17 +1,24 @@
 <div class="container">
     <div class="row">
         <h1>Overview of an Industry's Data</h1>
-        <h6>This page is used to generate two radar graphs that together give an overview of data on an industry for a specific year.  Once all required information is selected, you can generate the radar graphs that will help you analyze your data. All data comes from the US Bureau of Labor Statistics. Here are some helpful instructions and information to get you started with the dashboard:</h6>
-        <ul>
+        <h5>This page is used to generate two radar graphs that together give an overview of data on an industry for a specific year.  Once all required information is selected, you can generate the radar graphs that will help you analyze your data. All data comes from the US Bureau of Labor Statistics. Here are some helpful instructions and information to get you started with the dashboard:</h5>
+        <h6>Information on Data</h6>
+        <ol class="tip-list">
             <li>You can view data from 2007 up to 2021.</li>
-            <li>Selecting an Industry, A Sate, and a Year are all required to generate the radar graphs. Until these fields are completed, the "Generate Graphs" button will remain disabled.</li>
             <li>There are two radar graphs that are generated: The first is "State-Based Employment Data" for an Industry and the other is "Country-Wide Employment Data</li>
             <li>The "State-Based Employment Data" radar graph will generate a radar graph displaying the Number of Employees, Average Annual Pay, and Average Weekly Wage for an Industry in the state you selected for the year you selected.
             </li>
             <li>The "Country-Wide Employment Data" radar graph will generate a radar graph displaying the number of Job Openings, Layoffs & Discharges, and Hires for the year selected in the United States. State-based data is not available for these measurments.</li>
+        </ol>
+        <h6>Tips on Generating the Graphs</h6>
+        <ol class="tip-list">
+            <li>Selecting an Industry, A State, and a Year are all required to generate the radar graphs. Until these fields are completed, the "Generate Graphs" button will remain disabled.</li>
+        </ol>
+        <h6>Tips on Interpreting the Graph</h6>
+        <ol class="tip-list">
             <li>Once you generate the radar graphs, you can hover over each data point. Hovering over the data point will tell you the name of the industry, the measurment the data point is referring to and the value of this data point.</li>
             <li>For units, note that Average Annual Pay and Average Weekly Wage are both given in US dollars.</li>
-        </ul>
+        </ol>
     </div>
     <div class="row">
         <div class="col-sm">
@@ -76,6 +83,7 @@
                 [showYAxisLabel]="showYAxisLabel"
                 [xAxis]="xAxis"
                 [yAxis]="yAxis"
+                [labelTrim]="false"
                 [results]="multi">
             </ngx-charts-polar-chart>
         </div>
@@ -89,6 +97,7 @@
                 [showYAxisLabel]="showYAxisLabel"
                 [xAxis]="xAxis"
                 [yAxis]="yAxis"
+                [labelTrim]="false"
                 [results]="multi2">
             </ngx-charts-polar-chart>
         </div>
