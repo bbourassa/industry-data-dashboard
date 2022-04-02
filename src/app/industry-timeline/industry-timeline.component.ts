@@ -149,8 +149,11 @@ export class IndustryTimelineComponent implements OnInit {
   }
 
   formatData(graphData: any[], index: any) {
-
-    this.multi.push({"name": this.selectedInfo[index].Industry + ' - ' + this.selectedInfo[index].State, "series": [], "index": index})
+    if (this.selectedInfo[0].Measurement == 'Hires' || this.selectedInfo[0].Measurement == 'Job Openings' || this.selectedInfo[0].Measurement == 'Layoffs & Discharges') {
+        this.multi.push({"name": this.selectedInfo[index].Industry, "series": [], "index": index})
+    } else {
+        this.multi.push({"name": this.selectedInfo[index].Industry + ' - ' + this.selectedInfo[index].State, "series": [], "index": index})
+    }
     let multiIndex = this.multi.find(element => element.index === index)
     for(let i = 0; i < graphData.length; i++) {
         this.multi[multiIndex.index].series.unshift({"name": graphData[i].periodName + ' ' + graphData[i].year, "value": parseFloat(graphData[i].value)})
