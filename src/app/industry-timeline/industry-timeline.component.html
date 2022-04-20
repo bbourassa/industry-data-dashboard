@@ -4,6 +4,7 @@
         <h5>This page is used to generate a line graph that gives an overview of industry data over a selected timeline and allows for the comparison of at minimum 1 and at most 4 industries. Once all required information is selected, you can generate a line graph that will help you compare your data. All data comes from the US Bureau of Labor Statistics. Here are some helpful instructions and information to get you started with the dashboard:</h5>
         <h6>Information on Available Data</h6>
         <ol class="tip-list">
+            <li>The data sets used from the US Bureau of Labor Statistics are the <a href="https://www.bls.gov/cew/overview.htm">State and County Employment and Wages from Quarterly Census of Employment and Wages</a> and the <a href="https://www.bls.gov/jlt/jltover.htm">Job Openings and Labor Turnover Survey</a></li>
             <li>You can view data from 2007 up to 2021.</li>
             <li>The measurements available are Number of Employees, Average Weekly Wage (In US Dollars), Average Annual Pay (In US Dollars), Job Openings, Hires, and Layoffs and Discharges.</li>
             <li>Number of Employees, Average Weekly Wage, and Average Annual Pay are all available at the state level meaning when you select this measurement, selection of a particular state will become available to you and it will also be necessary in each row for graph generation.</li>
@@ -21,7 +22,7 @@
         </ol>
         <h6>Tips on reading the graph</h6>
         <ol class="tip-list">
-            <li>Once you generate a graph, you can hover over each data point. Hovering over a specific line's data point will give you </li>
+            <li>Once you generate a graph, you can hover over each data point. Hovering over a specific line's data point will give you the associated industry, state, and data point value.</li>
             <li>Hovering on a line of the x-axis will give the data points for all lines on the chart in the form "Industry: value".</li>
             <li>Hovering on a specific data line's point will give the data point for that industry only in the form "Industry: value."</li>
         </ol>
@@ -206,9 +207,6 @@
             [yAxisLabel]="yAxisLabel"
             [timeline]="timeline"
             [results]="multi"
-            (select)="onSelect($event)"
-            (activate)="onActivate($event)"
-            (deactivate)="onDeactivate($event)"
         >
         </ngx-charts-line-chart>
     </div>

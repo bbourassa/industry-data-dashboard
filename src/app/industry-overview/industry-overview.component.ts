@@ -67,6 +67,30 @@ export class IndustryOverviewComponent implements OnInit {
     this.multi2[0].series.push({'name': dataPoint, 'value': annualData.value})
   }
 
+  getThirdData(annualPayID: any, year1: any, year2: any, dataArr: any) {
+    this.industryDataService.getAnnualData(annualPayID, year1, year2).subscribe(res => {
+        if (dataArr == 'multi') {
+            this.setStateRadar(JSON.parse(res), 'Average Annual Pay')
+            this.multi = [...this.multi]
+        } else {
+            this.setCountryRadar(JSON.parse(res), 'Layoffs & Discharges')
+            this.multi2 = [...this.multi2]
+        }
+    }) 
+  }
+
+  getSecondData(weeklyWageID: any, annualPayID: any, year1: any, year2: any, dataArr: any) {
+    this.industryDataService.getAnnualData(weeklyWageID, year1, year2).subscribe(res => {
+        if(dataArr == 'multi') {
+            let stateData = JSON.parse(res)
+            this.setStateRadar(stateData, 'Average Weekly Wage')   
+        } else {
+            this.setCountryRadar(JSON.parse(res), 'Hires')
+        }
+        this.getThirdData(annualPayID, year1, year2, dataArr);
+    })
+  }
+
   generateGraphs(): void {
       this.multi = [];
       this.multi2 = [];
@@ -92,34 +116,14 @@ export class IndustryOverviewComponent implements OnInit {
       let layoffID = 'JTU' + jobOpeningIndustry + '000000000' + 'LD' + 'L'
 
       this.industryDataService.getAnnualData(empSeriesID, year, year).subscribe(res => {
-        console.log(JSON.parse(res))
-        this.setStateRadar(JSON.parse(res), 'Number of Employees')
-        this.industryDataService.getAnnualData(weeklyWageID, year, year).subscribe(res => {
-            console.log(JSON.parse(res))
-            this.setStateRadar(JSON.parse(res), 'Average Weekly Wage')
-            this.industryDataService.getAnnualData(annualPayID, year, year).subscribe(res => {
-                console.log(JSON.parse(res))
-                this.setStateRadar(JSON.parse(res), 'Average Annual Pay')
-                console.log(this.multi)
-                this.multi = [...this.multi]
-            })
-        })
-
+        let stateData = JSON.parse(res)
+        this.setStateRadar(stateData, 'Number of Employees')
+        this.getSecondData(weeklyWageID, annualPayID, year, year, 'multi');
       });
 
       this.industryDataService.getAnnualData(jobOpeningID, year, year).subscribe(res => {
-        console.log(JSON.parse(res))
         this.setCountryRadar(JSON.parse(res), 'Job Openings')
-        this.industryDataService.getAnnualData(hiresID, year, year).subscribe(res => {
-            console.log(JSON.parse(res))
-            this.setCountryRadar(JSON.parse(res), 'Hires')
-            this.industryDataService.getAnnualData(layoffID, year, year).subscribe(res => {
-                console.log(JSON.parse(res))
-                this.setCountryRadar(JSON.parse(res), 'Layoffs & Discharges')
-                this.multi2 = [...this.multi2]
-            })
-        })
-
+        this.getSecondData(hiresID, layoffID, year, year, this.multi2)
       });
   }
 

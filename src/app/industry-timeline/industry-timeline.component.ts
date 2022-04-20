@@ -49,18 +49,6 @@ export class IndustryTimelineComponent implements OnInit {
       this.items = [];
   }
 
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
-
   addRow(): void {
       if (this.items.length < 1) {
           this.items = [1]
@@ -181,83 +169,86 @@ export class IndustryTimelineComponent implements OnInit {
     return {'startYear': info.StartYear, 'endYear': info.EndYear, 'measurement': this.dataMappings.measurementCode[this.selectedInfo[0].Measurement!]}
   }
 
+  sortData(index: any) {
+    let firstDate = this.multi[0].series[0].name
+    if (index == 1) {
+        let secondDate = this.multi[1].series[0].name
+        if(new Date(firstDate.substring(firstDate.length-5, firstDate.length)) > new Date(secondDate.substring(secondDate.length-5, secondDate.length))) {
+          [this.multi[0], this.multi[1]] = [this.multi[1], this.multi[0]]
+        }
+    } else if (index == 2) {
+        let secondDate = this.multi[1].series[0].name
+        let thirdDate = this.multi[2].series[0].name
+        let sortedDates = [{'index': 0, 'year': new Date(firstDate.substring(firstDate.length-5, firstDate.length))}, {'index': 1, 'year': new Date(secondDate.substring(secondDate.length-5, secondDate.length))}, {'index': 2, 'year': new Date(thirdDate.substring(thirdDate.length-5, thirdDate.length))}]
+        sortedDates.sort((a: any, b: any) => (a.year > b.year ? 1 : -1))
+        this.multi = [...this.multi]
+        [this.multi[0], this.multi[1], this.multi[2]] = [this.multi[sortedDates[0].index], this.multi[sortedDates[1].index], this.multi[sortedDates[2].index]]
+        this.multi = [...this.multi]
+    } else if (index == 3) {
+        let secondDate = this.multi[1].series[0].name
+        let thirdDate = this.multi[2].series[0].name
+        let fourthDate = this.multi[3].series[0].name
+        let sortedDates = [{'index': 0, 'year': new Date(firstDate.substring(firstDate.length-5, firstDate.length))}, {'index': 1, 'year': new Date(secondDate.substring(secondDate.length-5, secondDate.length))}, {'index': 2, 'year': new Date(thirdDate.substring(thirdDate.length-5, thirdDate.length))}, {'index': 3, 'year':new Date(fourthDate.substring(fourthDate.length-5, fourthDate.length))}]
+        sortedDates.sort((a: any, b: any) => (a.year > b.year ? 1 : -1))
+        this.multi = [...this.multi]
+        [this.multi[0], this.multi[1], this.multi[2], this.multi[3]] = [this.multi[sortedDates[0].index], this.multi[sortedDates[1].index], this.multi[sortedDates[2].index], this.multi[sortedDates[3].index]]
+        this.multi = [...this.multi]
+    }
+  }
+
+  generateFourthTimeline() {
+    let fourthInfo = this.getQueryInfo(this.selectedInfo[3])
+    let fourthSeriesID = this.formatSeriesID(fourthInfo.measurement, 3);
+    this.industryDataService.getGeneralData(fourthSeriesID, fourthInfo.startYear, fourthInfo.endYear).subscribe(res => {
+      this.yAxisLabel = this.selectedInfo[0].Measurement!
+      this.formatData(JSON.parse(res), 3)
+      this.sortData(3)
+      this.multi = [...this.multi]
+    });
+  }
+
+  generateThirdTimeline() {
+      let thirdInfo = this.getQueryInfo(this.selectedInfo[2])
+      let thirdSeriesID = this.formatSeriesID(thirdInfo.measurement, 2);
+      this.industryDataService.getGeneralData(thirdSeriesID, thirdInfo.startYear, thirdInfo.endYear).subscribe(res => {
+        this.yAxisLabel = this.selectedInfo[0].Measurement!
+         this.formatData(JSON.parse(res), 2)
+         if(this.items.length >= 3) {
+             this.generateFourthTimeline()
+         } else {
+            this.sortData(2)
+            this.multi = [...this.multi]
+         }
+      });
+  }
+
+  generateSecondTimeline() {
+    let secondInfo = this.getQueryInfo(this.selectedInfo[1])
+    let secondSeriesID = this.formatSeriesID(secondInfo.measurement, 1);
+    this.industryDataService.getGeneralData(secondSeriesID, secondInfo.startYear, secondInfo.endYear).subscribe(res => {
+    this.yAxisLabel = this.selectedInfo[0].Measurement!
+     this.formatData(JSON.parse(res), 1)
+     if(this.items.length >= 2) {
+         this.generateThirdTimeline()
+     } else {
+        this.sortData(1)
+        this.multi = [...this.multi]
+     }
+    });
+  }
+
   generateGraph(): void {
       this.multi = []
-
       let firstInfo = this.getQueryInfo(this.selectedInfo[0])
-
       let firstSeriesID = this.formatSeriesID(firstInfo.measurement, 0);
-
       this.industryDataService.getGeneralData(firstSeriesID, firstInfo.startYear, firstInfo.endYear).subscribe(res => {
-
            this.yAxisLabel = this.selectedInfo[0].Measurement!
-
            this.formatData(JSON.parse(res), 0)
 
            if(this.items.length >= 1) {
-            let secondInfo = this.getQueryInfo(this.selectedInfo[1])
-            let secondSeriesID = this.formatSeriesID(secondInfo.measurement, 1);
-            this.industryDataService.getGeneralData(secondSeriesID, secondInfo.startYear, secondInfo.endYear).subscribe(res => {
-
-                this.yAxisLabel = this.selectedInfo[0].Measurement!
-     
-                this.formatData(JSON.parse(res), 1)
-
-                if(this.items.length >= 2) {
-                    let thirdInfo = this.getQueryInfo(this.selectedInfo[2])
-                    let thirdSeriesID = this.formatSeriesID(thirdInfo.measurement, 2);
-                      this.industryDataService.getGeneralData(thirdSeriesID, thirdInfo.startYear, thirdInfo.endYear).subscribe(res => {
-             
-                        this.yAxisLabel = this.selectedInfo[0].Measurement!
-             
-                        this.formatData(JSON.parse(res), 2)
-
-                        if(this.items.length === 3) {
-                            let fourthInfo = this.getQueryInfo(this.selectedInfo[3])
-                            let fourthSeriesID = this.formatSeriesID(fourthInfo.measurement, 3);
-                    
-                              this.industryDataService.getGeneralData(fourthSeriesID, fourthInfo.startYear, fourthInfo.endYear).subscribe(res => {
-                     
-                                this.yAxisLabel = this.selectedInfo[0].Measurement!
-                     
-                                this.formatData(JSON.parse(res), 3)
-                     
-                                let firstDate = this.multi[0].series[0].name
-                                let secondDate = this.multi[1].series[0].name
-                                let thirdDate = this.multi[2].series[0].name
-                                let fourthDate = this.multi[3].series[0].name
-                                let sortedDates = [{'index': 0, 'year': new Date(firstDate.substring(firstDate.length-5, firstDate.length))}, {'index': 1, 'year': new Date(secondDate.substring(secondDate.length-5, secondDate.length))}, {'index': 2, 'year': new Date(thirdDate.substring(thirdDate.length-5, thirdDate.length))}, {'index': 3, 'year':new Date(fourthDate.substring(fourthDate.length-5, fourthDate.length))}]
-                                sortedDates.sort((a: any, b: any) => (a.year > b.year ? 1 : -1))
-                                this.multi = [...this.multi]
-                                [this.multi[0], this.multi[1], this.multi[2], this.multi[3]] = [this.multi[sortedDates[0].index], this.multi[sortedDates[1].index], this.multi[sortedDates[2].index], this.multi[sortedDates[3].index]]
-                                this.multi = [...this.multi]
-                           });
-                        } else {
-                            let firstDate = this.multi[0].series[0].name
-                            let secondDate = this.multi[1].series[0].name
-                            let thirdDate = this.multi[2].series[0].name
-                            let sortedDates = [{'index': 0, 'year': new Date(firstDate.substring(firstDate.length-5, firstDate.length))}, {'index': 1, 'year': new Date(secondDate.substring(secondDate.length-5, secondDate.length))}, {'index': 2, 'year': new Date(thirdDate.substring(thirdDate.length-5, thirdDate.length))}]
-                            sortedDates.sort((a: any, b: any) => (a.year > b.year ? 1 : -1))
-                            this.multi = [...this.multi]
-                            [this.multi[0], this.multi[1], this.multi[2]] = [this.multi[sortedDates[0].index], this.multi[sortedDates[1].index], this.multi[sortedDates[2].index]]
-                            this.multi = [...this.multi]
-                        }
-             
-                   });
-                } else {
-                    let firstDate = this.multi[0].series[0].name
-                    let secondDate = this.multi[1].series[0].name
-                    if(new Date(firstDate.substring(firstDate.length-5, firstDate.length)) > new Date(secondDate.substring(secondDate.length-5, secondDate.length))) {
-                        [this.multi[0], this.multi[1]] = [this.multi[1], this.multi[0]]
-                    }
-                    this.multi = [...this.multi]
-                }
-           });
+            this.generateSecondTimeline();
            } else {
             this.multi = [...this.multi]
-            console.log(this.multi[0])
-            console.log(this.multi[1])
-            console.log(new Date(this.multi[0].series[0].name))
            }
 
       });

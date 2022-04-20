@@ -52,9 +52,7 @@ export class IndustryDataService {
   }
 
   getAnnualData(seriesId: string, startYear: string, endYear: string): Observable<any> {
-    //console.log(seriesId)
     let seriesID = seriesId;
-    //console.log(seriesID, startYear, endYear)
     let API_URL = `${this.REST_API}/annual/${seriesID}/${startYear}/${endYear}`;
     return this.httpClient.get(API_URL, { headers: this.httpHeaders })
       .pipe(map((res: any) => {
@@ -67,13 +65,7 @@ export class IndustryDataService {
   // Error 
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // Handle client error
-      errorMessage = error.error.message;
-    } else {
-      // Handle server error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
+    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     return throwError(errorMessage);
   }
 
