@@ -8,7 +8,7 @@ var Bls2 = require('bls2');
 var pg = require('pg');
 pg.defaults.ssl = true;
 
-const API_KEY = '4556e10026ca4e55b304c7732fcc9e23';
+const API_KEY = '646d100110244919a3d678b28e71971f';
 const industryRoutes = express.Router();
 
 let bls = new Bls2(API_KEY);
